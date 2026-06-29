@@ -5,6 +5,23 @@ import { Container } from '@/components/layout/Container';
 import { CTABanner } from '@/components/sections/CTABanner';
 import { Link } from 'react-router-dom';
 import type { AICapability } from '@/types';
+import aivector from '@/assets/Vector-ai.png';
+import omnichannelFlow from '@/assets/Gemini_Generated_Image_cn39zvcn39zvcn39 1.png';
+import aigentImg from '@/assets/aigent.png';
+import omnichannelImg from '@/assets/omnichannel.png';
+import analyticsImg from '@/assets/analytics.png';
+import salesPipelineImg from '@/assets/salespipeline.png';
+import automationEngineImg from '@/assets/automationEngine.png';
+import whyAiImg from '@/assets/image 5 (2).png';
+
+const CAPABILITY_IMAGES: Record<string, string> = {
+  routing: omnichannelFlow,
+  assist: aigentImg,
+  chatbot: omnichannelImg,
+  analytics: analyticsImg,
+  campaigns: salesPipelineImg,
+  workflows: automationEngineImg,
+};
 
 const CAPABILITIES: AICapability[] = [
   {
@@ -102,7 +119,7 @@ function CapabilityTabs() {
       <Container>
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-4 shadow-sm">
-            <span>✦</span> AI AGENT CAPABILITIES
+            <img src={aivector} alt="AI Vector" /> AI AGENT CAPABILITIES
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900">One intelligence layer.</h2>
           <p className="mt-3 text-neutral-500 max-w-xl mx-auto">
@@ -111,24 +128,26 @@ function CapabilityTabs() {
           </p>
         </div>
 
-        {/* Tab bar */}
-        <div className="flex flex-wrap gap-2 justify-center mb-10">
-          {CAPABILITIES.map((cap) => (
-            <button
-              key={cap.id}
-              onClick={() => setActive(cap.id)}
-              className={`px-4 py-2 rounded-full border text-sm font-medium transition-all ${
-                active === cap.id
-                  ? 'bg-green-700 text-white border-green-700'
-                  : 'bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300'
-              }`}
-            >
-              {cap.label}
-            </button>
-          ))}
+        {/* Tab bar — single segmented pill container */}
+        <div className="mb-10 overflow-x-auto">
+          <div className="inline-flex items-center gap-1 p-1.5 rounded-full border border-neutral-200 bg-white mx-auto min-w-full md:min-w-0 w-max">
+            {CAPABILITIES.map((cap) => (
+              <button
+                key={cap.id}
+                onClick={() => setActive(cap.id)}
+                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                  active === cap.id
+                    ? 'bg-green-700 text-white'
+                    : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
+                {cap.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Content */}
+        {/* Content — heading | description+bullets | image */}
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
@@ -136,30 +155,35 @@ function CapabilityTabs() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start"
           >
-            <div>
-              <p className="text-xs font-bold tracking-widest text-green-700 uppercase mb-4">{current.tag}</p>
-              <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-4">{current.heading}</h3>
+            {/* Heading */}
+            <div className="lg:col-span-3">
+              <p className="text-xs font-bold tracking-widest text-green-700 uppercase mb-3">{current.tag}</p>
+              <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 leading-tight">{current.heading}</h3>
+            </div>
+
+            {/* Description + bullets */}
+            <div className="lg:col-span-5">
               <p className="text-neutral-600 leading-relaxed mb-6">{current.description}</p>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {current.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-3 text-sm text-neutral-700">
-                    <CircleDot size={16} className="text-green-700 mt-0.5 shrink-0" />
+                  <li key={b} className="flex items-start gap-3 text-sm text-neutral-900">
+                    <CircleDot size={16} className="text-neutral-400 mt-0.5 shrink-0" />
                     <span className="font-semibold">{b}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl bg-neutral-50 border border-neutral-100 aspect-4/3 flex items-center justify-center">
-              <div className="text-center p-6">
-                <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center mx-auto mb-4">
-                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                    <circle cx="16" cy="16" r="10" stroke="#04A259" strokeWidth="2"/>
-                    <path d="M11 16l3 3 7-7" stroke="#04A259" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <p className="text-sm text-neutral-400">{current.label}</p>
+
+            {/* Image */}
+            <div className="lg:col-span-4 w-full">
+              <div className="rounded-2xl bg-neutral-50 border border-neutral-100 aspect-square flex items-center justify-center p-6">
+                <img
+                  src={CAPABILITY_IMAGES[current.id]}
+                  alt={current.label}
+                  className="w-full h-auto max-h-full object-contain"
+                />
               </div>
             </div>
           </motion.div>
@@ -200,7 +224,7 @@ function WhyAISection() {
       <Container>
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-4 shadow-sm">
-            <span>✦</span> WHY WAJENEXUS AI
+            <img src={aivector} alt="AI Vector" /> WHY WAJENEXUS AI
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900">
             Intelligence that makes every agent your best agent.
@@ -210,25 +234,23 @@ function WhyAISection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-          <div className="space-y-0 divide-y divide-neutral-100 border border-neutral-100 rounded-2xl overflow-hidden bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div>
             {reasons.map((r, i) => (
               <button
                 key={r.title}
                 onClick={() => setActiveReason(i)}
-                className={`w-full text-left p-6 transition-colors ${
-                  activeReason === i ? 'bg-white' : 'bg-neutral-50 hover:bg-white'
-                }`}
+                className="w-full text-left py-6 border-b border-neutral-200 last:border-0"
               >
                 <h3
-                  className={`font-semibold mb-1 transition-colors ${
+                  className={`text-lg font-bold mb-1.5 transition-colors ${
                     activeReason === i ? 'text-neutral-900' : 'text-neutral-400'
                   }`}
                 >
                   {r.title}
                 </h3>
                 <p
-                  className={`text-sm leading-relaxed transition-colors ${
+                  className={`leading-relaxed transition-colors ${
                     activeReason === i ? 'text-neutral-600' : 'text-neutral-400'
                   }`}
                 >
@@ -238,18 +260,8 @@ function WhyAISection() {
             ))}
           </div>
 
-          <div className="rounded-2xl bg-white border border-neutral-100 aspect-4/3 flex items-center justify-center shadow-sm">
-            <div className="text-center p-8">
-              <div className="w-20 h-20 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-4">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                  <rect x="4" y="10" width="32" height="22" rx="3" stroke="#04A259" strokeWidth="2"/>
-                  <path d="M4 16h32" stroke="#04A259" strokeWidth="2"/>
-                  <rect x="9" y="22" width="8" height="5" rx="1" fill="#04A259" opacity="0.3"/>
-                  <rect x="21" y="22" width="10" height="5" rx="1" fill="#04A259" opacity="0.5"/>
-                </svg>
-              </div>
-              <p className="text-sm font-medium text-neutral-500">{reasons[activeReason].title}</p>
-            </div>
+          <div className="rounded-2xl bg-white border border-neutral-100 aspect-square flex items-center justify-center shadow-sm p-8">
+            <img src={whyAiImg} alt="WajeNexus AI intelligence" className="w-full h-auto max-h-full object-contain" />
           </div>
         </div>
       </Container>
@@ -265,7 +277,7 @@ export function AIAgent() {
         <Container size="md">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-6 shadow-sm">
-              <span>✦</span> WAJNEXUS AI
+              <img src={aivector} alt="AI Vector" /> WAJNEXUS AI
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 leading-[1.1] mb-6">
               WajeNexusAI Makes Your
