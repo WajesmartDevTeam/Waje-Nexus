@@ -45,7 +45,7 @@ export function Navbar() {
                 className={cn(
                   'px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap',
                   isActive(item.href)
-                    ? 'text-neutral-900'
+                    ? 'text-[#016734] font-semibold'
                     : 'text-neutral-600 hover:text-neutral-900'
                 )}
               >
@@ -100,7 +100,7 @@ export function Navbar() {
                   className={cn(
                     'px-4 py-3 text-base font-medium rounded-lg transition-colors',
                     isActive(item.href)
-                      ? 'text-neutral-900 bg-neutral-100'
+                      ? 'text-[#016734] font-semibold bg-neutral-100'
                       : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50'
                   )}
                 >

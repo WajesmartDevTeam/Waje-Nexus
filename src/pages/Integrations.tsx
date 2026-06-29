@@ -1,9 +1,18 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Container } from '@/components/layout/Container';
-import { CTABanner } from '@/components/sections/CTABanner';
+// import { CTABanner } from '@/components/sections/CTABanner';
 import { Link } from 'react-router-dom';
 import type { IntegrationCategory } from '@/types';
+import vector from '@/assets/integration.png';
+import centerHub from '@/assets/centerintegration.png';
+import messageCard from '@/assets/messageicon.png';
+import mouse from '@/assets/mouse.png';
+import instagramCard from '@/assets/instagram.png';
+import whatsappCard from '@/assets/whatsapp.png';
+import emailCard from '@/assets/email.png';
+import facebookCard from '@/assets/facebook.png';
+import dialerCard from '@/assets/dialer.png';
 
 const CATEGORIES: IntegrationCategory[] = [
   {
@@ -121,9 +130,9 @@ function IntegrationChannels() {
       <Container>
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-4 shadow-sm">
-            <span>✦</span> WHAT WE CONNECT TO
+            <img src={vector} alt="Vector" /> WHAT WE CONNECT TO
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4 max-w-md text-center  mx-auto">
             Every channel talking to each other.
           </h2>
           <p className="text-neutral-500 max-w-2xl mx-auto">
@@ -132,23 +141,26 @@ function IntegrationChannels() {
           </p>
         </div>
 
-        {/* Tab bar */}
-        <div className="flex flex-wrap gap-1.5 justify-center mb-10 p-1.5 bg-neutral-100 rounded-2xl max-w-3xl mx-auto">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActive(cat.id)}
-              className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all flex-1 min-w-fit ${
-                active === cat.id
-                  ? 'bg-white text-neutral-900 shadow-sm'
-                  : 'text-neutral-600 hover:text-neutral-900'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+        {/* Tab bar — single segmented pill container */}
+        <div className="mb-12 flex justify-center">
+          <div className="inline-flex items-center gap-1 p-1.5 rounded-full border border-neutral-200 bg-white max-w-full overflow-x-auto">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActive(cat.id)}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                  active === cat.id
+                    ? 'bg-[#016734] text-white'
+                    : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
         </div>
 
+        {/* Content — heading | description+items | layered visual */}
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
@@ -156,35 +168,49 @@ function IntegrationChannels() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start"
           >
-            <div>
-              <p className="text-xs font-bold tracking-widest text-green-700 uppercase mb-2">{current.subheading}</p>
-              <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-4">{current.heading}</h3>
-              <p className="text-neutral-600 leading-relaxed mb-8">{current.description}</p>
-              <div className="space-y-0 divide-y divide-neutral-100">
+            {/* Heading */}
+            <div className="lg:col-span-3">
+              <p className="text-xs font-bold tracking-widest text-green-700 uppercase mb-3">{current.subheading}</p>
+              <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 leading-tight">{current.heading}</h3>
+            </div>
+
+            {/* Description + items */}
+            <div className="lg:col-span-5">
+              <p className="text-neutral-600 leading-relaxed mb-6">{current.description}</p>
+              <div className="divide-y divide-neutral-200">
                 {current.items.map((item) => (
-                  <div key={item.title} className="py-4">
-                    <h4 className="font-semibold text-neutral-900 mb-1">{item.title}</h4>
-                    <p className="text-sm text-neutral-500">{item.description}</p>
+                  <div key={item.title} className="py-4 first:pt-0">
+                    <h4 className="font-bold text-neutral-900 mb-1">{item.title}</h4>
+                    <p className="text-sm text-neutral-500 leading-relaxed">{item.description}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-2xl bg-neutral-50 border border-neutral-100 aspect-4/3 flex items-center justify-center">
-              <div className="text-center p-8">
-                <div className="grid grid-cols-3 gap-3 mb-4">
-                  {['📱', '💬', '📧', '📞', '🔔', '🌐'].map((emoji, i) => (
-                    <div
-                      key={i}
-                      className="w-12 h-12 rounded-xl bg-white border border-neutral-100 shadow-sm flex items-center justify-center text-xl mx-auto"
-                    >
-                      {emoji}
-                    </div>
-                  ))}
-                </div>
-                <p className="text-sm text-neutral-400">{current.label}</p>
+            {/* Layered hub visual */}
+            <div className="lg:col-span-4 w-full">
+              <div className="relative w-full aspect-square rounded-2xl bg-gradient-to-br from-[#F4FBF1] via-white to-neutral-50 border border-neutral-100 overflow-hidden flex items-center justify-center">
+                {/* Layered floating cards */}
+                <img
+                  src={messageCard}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute w-44 -left-4 top-12 -rotate-6 opacity-70 drop-shadow-lg"
+                />
+                <img
+                  src={messageCard}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute w-44 -right-4 bottom-12 rotate-6 opacity-70 drop-shadow-lg"
+                />
+                {/* Key hub icon */}
+                <img
+                  src={centerHub}
+                  alt="WajeNexus integration hub"
+                  className="relative z-10 w-28 h-28 sm:w-32 sm:h-32 object-contain drop-shadow-xl"
+                />
               </div>
             </div>
           </motion.div>
@@ -215,7 +241,7 @@ function APISection() {
       <Container>
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-4 shadow-sm">
-            <span>✦</span> FOR YOUR IT TEAM
+            <img src={vector} alt="" className="w-3.5 h-3.5" /> FOR YOUR IT TEAM
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">API &amp; Developer Access</h2>
           <p className="text-neutral-500 max-w-xl mx-auto">
@@ -223,39 +249,47 @@ function APISection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
-          {features.map((f) => (
-            <div key={f.title}>
-              <h3 className="font-bold text-neutral-900 mb-2">{f.title}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 mb-12">
+          {features.map((f, i) => (
+            <div
+              key={f.title}
+              className={`md:px-8 md:first:pl-0 ${i > 0 ? 'md:border-l md:border-neutral-200' : ''}`}
+            >
+              <h3 className="text-xl font-bold text-neutral-900 mb-2">{f.title}</h3>
               <p className="text-sm text-neutral-600 leading-relaxed">{f.desc}</p>
             </div>
           ))}
         </div>
 
-        <div className="relative overflow-hidden bg-[#FEF2EE] rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="max-w-lg">
+        <div className="relative overflow-hidden bg-[#FFDAD6] rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="max-w-lg relative z-10">
             <h3 className="text-xl font-bold text-neutral-900 mb-2">
               Not sure if WajeNexus connects with your current stack?
             </h3>
-            <p className="text-neutral-700 text-sm leading-relaxed">
+            <p className="text-neutral-700 text-sm leading-relaxed mb-5">
               Our technical team is happy to assess your existing infrastructure and confirm exactly how WajeNexus fits
               in. No obligation. No generic sales pitch. Just a straight answer from people who know the platform inside
               out.
             </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to="/contact"
+                className="px-6 py-3 text-sm font-semibold text-white bg-neutral-900 rounded-lg hover:bg-neutral-800 transition-colors"
+              >
+                Book a Demo
+              </Link>
+              <Link
+                to="/contact"
+                className="px-6 py-3 text-sm font-medium text-neutral-700 border border-neutral-200 bg-white rounded-lg hover:bg-neutral-50 transition-colors"
+              >
+                Talk to Our Team
+              </Link>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-3 shrink-0">
-            <Link
-              to="/contact"
-              className="px-6 py-3 text-sm font-semibold text-white bg-neutral-900 rounded-xl hover:bg-neutral-800 transition-colors"
-            >
-              Book a Demo
-            </Link>
-            <Link
-              to="/contact"
-              className="px-6 py-3 text-sm font-medium text-neutral-700 border border-neutral-300 bg-white rounded-xl hover:bg-neutral-50 transition-colors"
-            >
-              Talk to Our Team
-            </Link>
+
+          {/* Decorative blob */}
+          <div className="absolute -right-10 top-1/2 -translate-y-1/2 opacity-90 pointer-events-none select-none hidden md:block">
+            <img src={mouse} alt="" aria-hidden="true" width={420} height={420} />
           </div>
         </div>
       </Container>
@@ -271,7 +305,7 @@ export function Integrations() {
         <Container size="md">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-6 shadow-sm">
-              <span>✦</span> INTEGRATIONS
+              <img src={vector} alt="Vector" /> INTEGRATIONS
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 leading-[1.1] mb-6">
               WajeNexus Fits Into Your World
@@ -297,31 +331,59 @@ export function Integrations() {
         </Container>
       </section>
 
-      {/* Integration visual */}
-      <section className="py-8">
-        <Container size="md">
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            {['Instagram', 'WhatsApp', 'SMS', 'Gmail', 'Facebook', 'Phone'].map((ch) => (
-              <div
-                key={ch}
-                className="px-4 py-3 bg-white border border-neutral-100 rounded-2xl shadow-sm text-sm font-medium text-neutral-600"
-              >
-                {ch}
+      {/* Integration visual — layered channel cards around the hub */}
+      <section className="pb-12 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4">
+          {/* Desktop: layered composition */}
+          <div className="relative hidden lg:block h-[360px]">
+            {/* Concentric glow rings + center hub */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+              <div className="w-72 h-72 rounded-full bg-green-100/50 flex items-center justify-center">
+                <div className="w-52 h-52 rounded-full bg-green-200/50 flex items-center justify-center">
+                  <div className="w-36 h-36 rounded-full bg-green-300/40 flex items-center justify-center">
+                    <img src={centerHub} alt="WajeNexus integration hub" className="w-20 h-20 object-contain drop-shadow-lg" />
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
+
+            {/* Surrounding channel cards */}
+            <img src={instagramCard} alt="Instagram" className="absolute left-0 top-0 w-48" />
+            <img src={whatsappCard} alt="WhatsApp" className="absolute left-[19%] top-16 w-56 z-20" />
+            <img src={messageCard} alt="Live chat" className="absolute left-[35%] top-20 w-44 z-20" />
+            <img src={dialerCard} alt="Voice calls" className="absolute right-[33%] top-16 w-44 z-20" />
+            <img src={emailCard} alt="Email" className="absolute right-[17%] top-14 w-56 z-20" />
+            <img src={facebookCard} alt="Facebook" className="absolute right-0 top-2 w-48" />
           </div>
-        </Container>
+
+          {/* Mobile / tablet: simple responsive grid */}
+          <div className="lg:hidden">
+            <div className="relative flex justify-center mb-6">
+              <div className="w-44 h-44 rounded-full bg-green-100/50 flex items-center justify-center">
+                <div className="w-32 h-32 rounded-full bg-green-200/50 flex items-center justify-center">
+                  <img src={centerHub} alt="WajeNexus integration hub" className="w-16 h-16 object-contain drop-shadow-lg" />
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center">
+              <img src={instagramCard} alt="Instagram" className="w-full" />
+              <img src={whatsappCard} alt="WhatsApp" className="w-full" />
+              <img src={emailCard} alt="Email" className="w-full" />
+              <img src={facebookCard} alt="Facebook" className="w-full" />
+            </div>
+          </div>
+        </div>
       </section>
 
       <IntegrationChannels />
       <APISection />
 
-      <CTABanner
+      {/* <CTABanner
         heading="Ready to Connect WajeNexus to Your Stack?"
         subheading="Our integration experts are ready to help you get connected — quickly and cleanly."
         primaryCTA={{ label: 'Book a Demo', href: '/contact' }}
         secondaryCTA={{ label: 'Talk to Our Team', href: '/contact' }}
-      />
+      /> */}
     </>
   );
 }

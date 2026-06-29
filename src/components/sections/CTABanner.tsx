@@ -17,7 +17,7 @@ export function CTABanner({
   secondaryCTA = { label: 'Watch 2-min Demo', href: '#' },
 }: CTABannerProps) {
   return (
-    <section className="pt-0 pb-10 px-4 sm:px-6 lg:px-8 bg-[#F7F7F7]">
+    <section className="pt-0 pb-10 px-4 sm:px-6 lg:px-8 ">
       <Container>
         <div className="relative overflow-hidden bg-[#FFDAD6] rounded-3xl px-8 py-6 sm:px-12 sm:py-8 flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Text */}

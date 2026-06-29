@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion';
-import { CircleDot } from 'lucide-react';
+import { CircleDot, Box, Play } from 'lucide-react';
 import { Container } from '@/components/layout/Container';
 import { CTABanner } from '@/components/sections/CTABanner';
 import { Link } from 'react-router-dom';
-import { Play } from 'lucide-react';
 import type { PlatformFeature } from '@/types';
+import vector from "@/assets/Vector.png";
+import heroDashboard from "@/assets/wajenexus-dashboard.png";
+import omnichannelFlow from "@/assets/Gemini_Generated_Image_cn39zvcn39zvcn39 1.png";
+import ticketWorkflow from "@/assets/image 5.png";
 
 const FEATURES: PlatformFeature[] = [
   {
@@ -97,7 +100,7 @@ function FeatureBlock({ feature, index }: { feature: PlatformFeature; index: num
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.5 }}
-      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-10 lg:gap-16 items-start py-16 border-b border-neutral-100 last:border-0`}
+      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-10 lg:gap-16 items-start py-16 border-b border-neutral-100 last:border-0 ]`}
     >
       {/* Text */}
       <div className="flex-1">
@@ -114,23 +117,113 @@ function FeatureBlock({ feature, index }: { feature: PlatformFeature; index: num
         </ul>
       </div>
 
-      {/* Visual placeholder */}
-      <div className="flex-1 w-full">
-        <div className="rounded-2xl bg-neutral-50 border border-neutral-100 aspect-4/3 flex items-center justify-center">
-          <div className="text-center p-8">
-            <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center mx-auto mb-4">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect x="4" y="8" width="24" height="16" rx="2" stroke="#04A259" strokeWidth="2"/>
-                <path d="M4 12h24" stroke="#04A259" strokeWidth="2"/>
-                <rect x="8" y="16" width="6" height="4" rx="1" fill="#04A259" opacity="0.4"/>
-                <rect x="18" y="16" width="6" height="4" rx="1" fill="#04A259" opacity="0.4"/>
-              </svg>
-            </div>
-            <p className="text-sm text-neutral-400">{feature.tag}</p>
-          </div>
-        </div>
+      {/* Visual */}
+      <div className="flex-1 w-full flex items-center justify-center">
+        <img
+          src={isEven ? omnichannelFlow : ticketWorkflow}
+          alt={feature.tag}
+          className="w-full h-auto object-contain"
+        />
       </div>
     </motion.div>
+  );
+}
+
+function CommittedSection() {
+  const pillars = [
+    {
+      title: 'Free Setup, Training & Installation',
+      desc: "No surprise professional services bill. We get you live, we train your team, and we make sure you're set up for success at no additional cost.",
+    },
+    {
+      title: '24/7 In-House Support',
+      desc: 'When something needs attention, you reach a WajeNexus expert who knows your account and not a distant helpdesk queue operating in a different time zone.',
+    },
+    {
+      title: 'One Platform, Not a Bundle',
+      desc: 'Everything you see here is one product. Not three separate tools repackaged together with a shared login. One system. One team. One monthly cost.',
+    },
+  ];
+
+  return (
+    <section className="py-16 sm:py-20">
+      <Container>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 mb-10">
+          Committed to your success.
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0">
+          {pillars.map((p, i) => (
+            <div
+              key={p.title}
+              className={`md:px-8 md:first:pl-0 ${i > 0 ? 'md:border-l md:border-neutral-200' : ''}`}
+            >
+              <h3 className="text-xl font-bold text-neutral-900 mb-3">{p.title}</h3>
+              <p className="text-neutral-600 leading-relaxed">{p.desc}</p>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+function ProblemSolveSection() {
+  const cards = [
+    {
+      title: 'Core Business Modules',
+      desc: 'One system, several capabilities built to work together from the ground up, not connected after the fact.',
+    },
+    {
+      title: 'Omnichannel from Day One',
+      desc: 'Phone calls, emails, WhatsApp conversations, live chats etc. all flow into one unified workspace.',
+    },
+    {
+      title: 'Zero Setup or Onboarding Fees',
+      desc: 'Setup, installation, training, and onboarding are included at no extra charge.',
+    },
+  ];
+
+  return (
+    <section className="py-16 sm:py-20">
+      <Container>
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-semibold tracking-widest text-neutral-900 uppercase mb-6 shadow-sm">
+            <Box size={14} /> THE PROBLEM WE SOLVE
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-extrabold tracking-tight text-neutral-900 leading-[1.1] mb-6">
+            Your current CRM doesn't fully support your unique demands.
+          </h2>
+          <p className="text-neutral-500 leading-relaxed mb-6 max-w-5xl text-[15px] text-center mx-auto">
+            For too long, businesses have patched together tools that are expensive, poorly supported, and
+            fundamentally misaligned with their market realities. Exchange rate volatility drives licensing costs
+            skyward. Vendor support is slow or nonexistent. And when the tools don't fit, your teams work around them
+            instead of with them.
+          </p>
+          <p className="text-neutral-500 leading-relaxed">
+            <strong className="font-semibold text-neutral-900">WajeNexus</strong> changes that. Built with the depth of
+            global enterprise software and the flexibility to adapt to the unique demands of your market. Everything
+            your customer-facing teams need. Finally, in one place.
+          </p>
+        </div>
+
+        <div className="bg-[#F4FBF1] rounded-3xl p-3 sm:p-4 shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+            {cards.map((card) => (
+              <div
+                key={card.title}
+                className="flex gap-3 bg-white rounded-2xl border border-neutral-100 p-6"
+              >
+                <CircleDot size={16} className="text-neutral-900 mt-1 shrink-0" />
+                <div>
+                  <h3 className="font-bold text-neutral-900 mb-1.5">{card.title}</h3>
+                  <p className="text-sm text-neutral-500 leading-relaxed">{card.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 }
 
@@ -159,10 +252,10 @@ function EnterpriseSection() {
       <Container>
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-4 shadow-sm">
-            <span>✦</span> ADVANCED FEATURES
+            <img src={vector} alt="vector" /> ADVANCED FEATURES
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">Built for Enterprise</h2>
-          <p className="text-neutral-500 max-w-2xl mx-auto">
+          <p className="text-neutral-500 max-w-xl mx-auto text-[15px] leading-relaxed">
             WajeNexus is built to meet the security, compliance, and operational complexity demands of large organizations
             with the flexibility and local adaptability that Nigeria and African markets require.
           </p>
@@ -172,7 +265,7 @@ function EnterpriseSection() {
           {items.map((item) => (
             <div key={item.title} className="bg-white p-8">
               <h3 className="font-bold text-neutral-900 mb-3">{item.title}</h3>
-              <p className="text-sm text-neutral-600 leading-relaxed">{item.desc}</p>
+              <p className="text-[16px] text-neutral-600 leading-relaxed max-w-md ">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -185,11 +278,11 @@ export function Platform() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-10 pb-4">
-        <Container size="md">
+      <section className="pt-10 pb-4 bg=[#FFFFFF]">
+        <Container size="full">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-6 shadow-sm">
-              <span>✦</span> THE WAJENEXUS PLATFORM
+              <img src={vector} alt="vector" /> THE WAJENEXUS PLATFORM
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 leading-[1.1] mb-6">
               One Platform.
@@ -202,31 +295,77 @@ export function Platform() {
               An all-in-one CRM and Contact Centre platform built for African enterprises unifying every customer
               touchpoint into a single, intelligent workspace.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
-                to="/contact"
-                className="px-7 py-3.5 text-base font-semibold text-white bg-neutral-900 rounded-xl hover:bg-neutral-800 transition-colors"
-              >
-                Start Free Trial
-              </Link>
-              <Link
-                to="#"
-                className="inline-flex items-center gap-2 px-6 py-3.5 text-base font-medium text-neutral-700 border border-neutral-200 bg-white rounded-xl hover:bg-neutral-50 transition-colors"
-              >
-                <Play size={15} className="fill-current" />
-                Watch 2-min Demo
-              </Link>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-3">
+              <div className="flex flex-col items-center">
+                <Link
+                  to="/contact"
+                  className="w-full max-w-[170px] px-4 py-3.5 text-base text-[16px] font-semibold text-white bg-neutral-900 rounded-md hover:bg-neutral-800 transition-colors text-center"
+                >
+                  Start Free Trial
+                </Link>
+                <div className="flex items-center justify-center gap-1.5 text-[14px] text-[#3C3B3B]">
+                  <span className="text-yellow-400 text-[20px]">★★★★★</span>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center gap-2">
+                <Link
+                  to="#"
+                  className="inline-flex items-center justify-center gap-2 w-full max-w-[220px] px-4 py-3.5 text-base font-medium text-neutral-700 border border-neutral-200 bg-white rounded-md hover:bg-neutral-50 transition-colors"
+                >
+                  <Play size={15} className="fill-current" />
+                  Watch 2-min Demo
+                </Link>
+                <span className="text-[14px] text-[#3C3B3B]">Trusted by Enterprise Teams</span>
+              </div>
             </div>
           </div>
+             {/* Dashboard screenshot */}
+        <div className=" py-5 px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-10 relative "
+          >
+            <div className="mx-auto relative">
+              {/* Glowing background */}
+              <div className="absolute inset-0 -top-10 rounded-3xl bg-green-50 blur-3xl opacity-50 pointer-events-none" />
+              <div
+                className="
+                  relative
+                  rounded-2xl
+                  shadow-2xl shadow-neutral-200/60
+                  overflow-hidden
+                  bg-white
+                  
+                "
+              >
+                <img
+                  src={heroDashboard}
+                  alt="WajeNexus Dashboard"
+                  className="w-full h-auto rounded-xl"
+                  loading="eager"
+                />
+
+                <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white via-white/60 to-transparent pointer-events-none" />
+              </div>
+            </div>
+          </motion.div>
+        </div>
         </Container>
       </section>
 
+      {/* The problem we solve */}
+      <ProblemSolveSection />
+
       {/* Feature blocks */}
-      <section className="py-8">
+      <section className="py-8 bg-[#F7F7F7]">
         <Container>
           <div className="mb-10 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-semibold tracking-widest text-neutral-500 uppercase shadow-sm">
-              <span>✦</span> PRODUCT FEATURES
+              <img src={vector} alt="vector" className="w-4 h-4" />
+              PRODUCT FEATURES
             </div>
             <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-neutral-900">
               Built for every team that touches the customer.
@@ -243,6 +382,7 @@ export function Platform() {
       </section>
 
       <EnterpriseSection />
+      <CommittedSection />
       <CTABanner
         heading="Ready to Transform your Customer Operations?"
         primaryCTA={{ label: 'Start Free Trial', href: '/contact' }}

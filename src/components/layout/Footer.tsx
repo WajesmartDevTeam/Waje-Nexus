@@ -204,11 +204,9 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="flex items-center justify-between pt-6">
           <p className="text-sm text-white/50">
-            Copyright © 2026 WajeNexus
+           © 2026 WajeNexus
           </p>
-          <p className="text-sm text-white/50">
-            All Rights Reserved
-          </p>
+          
         </div>
 
       </div>
