@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { NAV_ITEMS } from '@/constants/nav';
-import { useScrolled } from '@/hooks/useScrolled';
-import { cn } from '@/utils/cn';
-import logoImg from '@/assets/WajeNexus logo 1.png';
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { NAV_ITEMS } from "@/constants/nav";
+import { useScrolled } from "@/hooks/useScrolled";
+import { cn } from "@/utils/cn";
+import logoImg from "@/assets/WajeNexus logo 1.png";
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -16,16 +16,18 @@ export function Navbar() {
 
   return (
     <>
-      <header className={cn("fixed top-0 left-0 right-0 z-50 flex justify-center",
-        scrolled? 'pt-0': 'pt-4'
-      )}>
+      <header
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 flex justify-center",
+          scrolled ? "pt-0" : "pt-4",
+        )}
+      >
         <div
           className={cn(
-            'w-full max-w-7xl flex items-center justify-between gap-4 h-[72px]  px-3 sm:px-10 rounded-[10px] border-[0.2px] transition-all duration-300 shadow-md',
-            'backdrop-blur-md',
-            scrolled
-              ? 'bg-white/90 shadow-lg shadow-black/6 backdrop-blur-xl border-neutral-300'
-              : 'bg-white shadow-sm shadow-black/5 border-neutral-200'
+            "w-full max-w-7xl flex items-center justify-between gap-4 h-[72px] px-3 sm:px-10 rounded-[10px] transition-all duration-300",
+            "backdrop-blur-md border-[0.2px] border-[#ADABAA] bg-white",
+            "shadow-[0px_4px_10px_0px_#B0B0B01A,0px_18px_18px_0px_#B0B0B017,0px_40px_24px_0px_#B0B0B00D,0px_71px_28px_0px_#B0B0B003,0px_111px_31px_0px_#B0B0B000]",
+            scrolled ? "backdrop-blur-xl" : "",
           )}
         >
           {/* Left: logo + separator */}
@@ -43,10 +45,10 @@ export function Navbar() {
                 key={item.href}
                 to={item.href}
                 className={cn(
-                  'px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap',
+                  "px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap",
                   isActive(item.href)
-                    ? 'text-[#016734] font-semibold'
-                    : 'text-neutral-600 hover:text-neutral-900'
+                    ? "text-[#016734] font-semibold"
+                    : "text-neutral-600 hover:text-neutral-900",
                 )}
               >
                 {item.label}
@@ -88,7 +90,7 @@ export function Navbar() {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.16, ease: 'easeOut' }}
+            transition={{ duration: 0.16, ease: "easeOut" }}
             className="fixed top-[96px] inset-x-6 z-40 bg-white border border-neutral-200 rounded-2xl shadow-xl p-4"
           >
             <nav className="flex flex-col gap-0.5">
@@ -98,10 +100,10 @@ export function Navbar() {
                   to={item.href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    'px-4 py-3 text-base font-medium rounded-lg transition-colors',
+                    "px-4 py-3 text-base font-medium rounded-lg transition-colors",
                     isActive(item.href)
-                      ? 'text-[#016734] font-semibold bg-neutral-100'
-                      : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50'
+                      ? "text-[#016734] font-semibold bg-neutral-100"
+                      : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50",
                   )}
                 >
                   {item.label}

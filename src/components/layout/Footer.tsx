@@ -56,7 +56,7 @@ const policyLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#2C3830] text-white">
+    <footer className="bg-[#2B322C] text-white">
       <div className="max-w-[1200px] mx-auto px-8 pt-16 pb-8">
 
         {/* Top section */}
