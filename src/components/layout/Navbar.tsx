@@ -61,13 +61,13 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-4 justify-end ">
             <Link
               to="/login"
-              className="flex items-center justify-center px-2 py-2.5 h-10 text-sm font-medium text-neutral-700 border-[0.6px] border-neutral-300 rounded-[8px] hover:bg-neutral-50 transition-colors w-[70px]"
+              className="flex items-center justify-center px-2 py-2.5 h-10 text-sm font-medium text-neutral-700 border-[0.6px] border-neutral-300 rounded-[8px] hover:bg-[#016734] hover:text-white hover:border-[#016734] transition-colors w-[70px]"
             >
               Login
             </Link>
             <Link
               to="/contact"
-              className="flex items-center justify-center px-2 py-2.5 h-10 text-sm font-semibold text-white bg-neutral-900 rounded-[8px] w-[100px] hover:bg-neutral-800 transition-colors"
+              className="flex items-center justify-center px-2 py-2.5 h-10 text-sm font-semibold text-white bg-neutral-900 rounded-[8px] w-[100px] hover:bg-[#016734] transition-colors"
             >
               Book Demo
             </Link>
@@ -115,14 +115,14 @@ export function Navbar() {
               <Link
                 to="/login"
                 onClick={() => setMobileOpen(false)}
-                className="px-4 py-3 text-center text-sm font-medium text-neutral-700 border border-neutral-300 rounded-[8px] hover:bg-neutral-50 transition-colors"
+                className="px-4 py-3 text-center text-sm font-medium text-neutral-700 border border-neutral-300 rounded-[8px] hover:bg-[#016734] hover:text-white hover:border-[#016734] transition-colors"
               >
                 Login
               </Link>
               <Link
                 to="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="px-4 py-3 text-center text-sm font-semibold text-white bg-neutral-900 rounded-[8px] hover:bg-neutral-800 transition-colors"
+                className="px-4 py-3 text-center text-sm font-semibold text-white bg-neutral-900 rounded-[8px] hover:bg-[#016734] transition-colors"
               >
                 Book Demo
               </Link>

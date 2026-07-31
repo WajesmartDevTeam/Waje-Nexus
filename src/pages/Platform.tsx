@@ -1,13 +1,12 @@
+import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { CircleDot, Box, Play } from 'lucide-react';
+import { CircleDot, Box, Play, Pause, RotateCcw, MessageCircle, MessageSquare, Phone, Mail, Camera, Calendar, Users } from 'lucide-react';
 import { Container } from '@/components/layout/Container';
 import { CTABanner } from '@/components/sections/CTABanner';
 import { Link } from 'react-router-dom';
 import type { PlatformFeature } from '@/types';
 import vector from "@/assets/Vector.png";
 import heroDashboard from "@/assets/wajenexus-dashboard.png";
-import omnichannelFlow from "@/assets/Gemini_Generated_Image_cn39zvcn39zvcn39 1.png";
-import ticketWorkflow from "@/assets/image 5.png";
 
 const FEATURES: PlatformFeature[] = [
   {
@@ -91,6 +90,226 @@ const FEATURES: PlatformFeature[] = [
   },
 ];
 
+const CARD_GRADIENTS = [
+  'bg-linear-to-br from-violet-100 via-fuchsia-50 to-pink-100',
+  'bg-linear-to-br from-fuchsia-100 via-violet-50 to-purple-100',
+  'bg-linear-to-br from-indigo-100 via-violet-50 to-fuchsia-100',
+  'bg-linear-to-br from-violet-100 via-indigo-50 to-purple-100',
+  'bg-linear-to-br from-sky-100 via-violet-50 to-pink-100',
+  'bg-linear-to-br from-indigo-100 via-purple-50 to-violet-100',
+];
+
+/* ── Playback placeholder card (stands in for the real animation) ── */
+type PlayStatus = 'idle' | 'playing' | 'paused' | 'ended';
+
+function PlaybackCard({ gradient, children }: { gradient: string; children: ReactNode }) {
+  // Idle until scrolled into view, then plays through once and stops (no auto-loop, no auto-replay).
+  const [status, setStatus] = useState<PlayStatus>('idle');
+  const [runId, setRunId] = useState(0);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const playing = status === 'playing';
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStatus((s) => (s === 'idle' ? 'playing' : s));
+          observer.disconnect(); // start once, on first entry only
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleClick = () => {
+    if (status === 'playing') setStatus('paused');
+    else if (status === 'ended') {
+      // replay from the start
+      setRunId((n) => n + 1);
+      setStatus('playing');
+    } else {
+      // idle or paused → play / resume
+      setStatus('playing');
+    }
+  };
+
+  return (
+    <div ref={cardRef} className={`relative overflow-hidden rounded-3xl ${gradient} min-h-[320px] sm:min-h-[380px] flex items-center justify-center p-6 sm:p-10`}>
+      {/* Shimmer sweep — only while actively playing */}
+      <div className={`pointer-events-none absolute inset-0 overflow-hidden transition-opacity duration-500 ${playing ? 'opacity-100' : 'opacity-0'}`}>
+        <div
+          key={runId}
+          className="absolute top-0 -left-1/3 h-full w-1/3 bg-white/40 blur-2xl"
+          style={{ animation: 'fp-sweep 3.8s linear infinite', animationPlayState: playing ? 'running' : 'paused' }}
+        />
+      </div>
+
+      {/* Mockup */}
+      <div className="relative z-10 w-full flex justify-center">{children}</div>
+
+      {/* Play / Pause / Replay with progress ring */}
+      <button
+        type="button"
+        onClick={handleClick}
+        aria-label={status === 'playing' ? 'Pause preview' : status === 'ended' ? 'Replay preview' : 'Play preview'}
+        className="group absolute bottom-5 right-5 z-20 grid place-items-center w-14 h-14 rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-white/60"
+      >
+        <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 56 56" aria-hidden="true">
+          <circle cx="28" cy="28" r="26" fill="none" stroke="rgba(255,255,255,0.65)" strokeWidth="2.5" />
+          <circle
+            key={runId}
+            cx="28"
+            cy="28"
+            r="26"
+            pathLength={100}
+            fill="none"
+            stroke="#016734"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeDasharray="100"
+            style={{ animation: 'fp-ring 6s linear forwards', animationPlayState: playing ? 'running' : 'paused' }}
+            onAnimationEnd={() => setStatus('ended')}
+          />
+        </svg>
+        <span className="relative w-11 h-11 rounded-full bg-white/95 shadow-lg grid place-items-center text-neutral-800 transition-transform group-hover:scale-105">
+          {status === 'playing' ? (
+            <Pause size={15} className="fill-current" />
+          ) : status === 'ended' ? (
+            <RotateCcw size={15} />
+          ) : (
+            <Play size={15} className="fill-current ml-0.5" />
+          )}
+        </span>
+      </button>
+    </div>
+  );
+}
+
+/* ── Mockups — placeholders replicating each product surface ─────── */
+function OmniMock() {
+  const rows = [
+    { label: 'WhatsApp', color: 'bg-green-500', icon: <MessageCircle size={13} /> },
+    { label: 'Live Chats', color: 'bg-sky-500', icon: <MessageSquare size={13} /> },
+    { label: 'Voice calls', color: 'bg-violet-500', icon: <Phone size={13} /> },
+    { label: 'Emails', color: 'bg-red-500', icon: <Mail size={13} /> },
+    { label: 'Facebook', color: 'bg-blue-600', icon: <span className="text-[11px] font-bold leading-none">f</span> },
+    { label: 'Instagram', color: 'bg-pink-500', icon: <Camera size={13} /> },
+  ];
+  return (
+    <div className="w-full max-w-[280px] space-y-2">
+      {rows.map((r) => (
+        <div key={r.label} className="flex items-center gap-3 rounded-xl bg-white/95 shadow-sm px-3 py-2.5">
+          <span className={`w-7 h-7 rounded-full ${r.color} text-white flex items-center justify-center shrink-0`}>{r.icon}</span>
+          <span className="text-xs font-semibold text-neutral-800">{r.label}</span>
+          <span className="ml-auto h-1.5 w-14 rounded-full bg-neutral-200" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TicketMock() {
+  const rows = [
+    { age: '6 days 18 hours', status: 'In Progress', cls: 'bg-blue-100 text-blue-600', cat: '₦365 Issues' },
+    { age: '7 days 23 hours', status: 'Escalated', cls: 'bg-red-100 text-red-500', cat: 'Billing' },
+    { age: '8 days 18 hours', status: 'Open', cls: 'bg-orange-100 text-orange-500', cat: 'Billing' },
+    { age: '8 days 19 hours', status: 'Closed', cls: 'bg-neutral-100 text-neutral-500', cat: 'Billing' },
+    { age: '13 days 1 hour', status: 'Closed', cls: 'bg-neutral-100 text-neutral-500', cat: 'Billing' },
+  ];
+  return (
+    <div className="w-full max-w-[330px] rounded-xl bg-white shadow-md overflow-hidden text-[11px]">
+      <div className="grid grid-cols-3 gap-2 bg-neutral-900 text-white px-4 py-2.5 font-semibold">
+        <span>Ticket Age</span><span>Ticket status</span><span>Category</span>
+      </div>
+      {rows.map((r, i) => (
+        <div key={i} className="grid grid-cols-3 gap-2 items-center px-4 py-2.5 border-b border-neutral-100 last:border-0">
+          <span className="text-neutral-600">{r.age}</span>
+          <span><span className={`inline-block px-2 py-0.5 rounded-full font-medium ${r.cls}`}>{r.status}</span></span>
+          <span className="text-neutral-600">{r.cat}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DealMock() {
+  return (
+    <div className="w-full max-w-[260px] rounded-xl bg-white shadow-md p-4 text-xs">
+      <div className="flex items-center justify-between mb-3">
+        <span className="inline-flex items-center gap-1.5 text-neutral-500"><span className="w-2 h-2 rounded-sm bg-amber-400" />Medium</span>
+        <span className="font-semibold text-neutral-800">₦ 7,000,000.00</span>
+      </div>
+      <p className="font-bold text-neutral-900 text-sm leading-snug mb-2">Implementations of Complaint dispute portal</p>
+      <p className="inline-flex items-center gap-1.5 text-neutral-400 mb-4"><Calendar size={12} /> days</p>
+      <div className="border-t border-neutral-100 pt-3 space-y-2">
+        <div className="flex items-center gap-2 text-neutral-700">
+          <span className="w-5 h-5 rounded-full bg-neutral-800 text-white text-[8px] flex items-center justify-center">JD</span> John Doe
+        </div>
+        <div className="inline-flex items-center gap-1.5 text-neutral-500"><Users size={12} /> Contacts: 1</div>
+      </div>
+    </div>
+  );
+}
+
+function CampaignMock() {
+  const names = ['Welcome message', 'New members on WajeNexus', 'New To WajeNexus', 'Introducing WajeNexus', 'Introducing WajeNexus'];
+  return (
+    <div className="w-full max-w-[330px] rounded-xl bg-white shadow-md overflow-hidden text-[11px]">
+      <div className="grid grid-cols-2 gap-2 bg-neutral-900 text-white px-4 py-2.5 font-semibold">
+        <span>Campaign Name</span><span>Campaign Status</span>
+      </div>
+      {names.map((n, i) => (
+        <div key={i} className="grid grid-cols-2 gap-2 items-center px-4 py-2.5 border-b border-neutral-100 last:border-0">
+          <span className="text-neutral-600">{n}</span>
+          <span><span className="inline-block px-2 py-0.5 rounded bg-green-100 text-green-700 font-medium">Completed</span></span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function LeaveMock() {
+  return (
+    <div className="w-full max-w-[260px] rounded-xl bg-white shadow-md p-4 text-xs">
+      <p className="font-bold text-neutral-900 text-sm mb-3">Leave Request</p>
+      <div className="flex items-center gap-2 mb-2 text-neutral-700">
+        <span className="w-5 h-5 rounded-full bg-neutral-800 text-white text-[8px] flex items-center justify-center">JD</span> Jane Doe
+      </div>
+      <div className="flex flex-wrap items-center gap-2 text-neutral-500 mb-2">
+        <span className="inline-flex items-center gap-1"><Calendar size={12} /> Aug 16, 2026 To Aug 31, 2026</span>
+        <span className="px-1.5 py-0.5 rounded bg-blue-100 text-blue-600 font-medium">Personal</span>
+      </div>
+      <p className="text-neutral-600 mb-3">Going for annual leave</p>
+      <div className="flex gap-2">
+        <button className="flex-1 py-1.5 rounded bg-green-500 text-white font-medium">Approve</button>
+        <button className="flex-1 py-1.5 rounded bg-red-500 text-white font-medium">Reject</button>
+      </div>
+    </div>
+  );
+}
+
+function CsatMock() {
+  return (
+    <div className="w-full max-w-[210px] rounded-xl bg-white shadow-md p-5">
+      <p className="text-xs font-semibold text-neutral-700 mb-3">CSAT</p>
+      <div className="relative w-32 h-32 mx-auto">
+        <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
+          <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#E5E7EB" strokeWidth="3.5" />
+          <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#2563EB" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="65 100" />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center text-xl font-bold text-neutral-900">65%</div>
+      </div>
+      <p className="text-xs text-neutral-500 text-center mt-3">Target: <span className="text-blue-600 font-semibold">85%</span></p>
+    </div>
+  );
+}
+
+const MOCKS = [<OmniMock />, <TicketMock />, <DealMock />, <CampaignMock />, <LeaveMock />, <CsatMock />];
+
 function FeatureBlock({ feature, index }: { feature: PlatformFeature; index: number }) {
   const isEven = index % 2 === 0;
 
@@ -100,7 +319,7 @@ function FeatureBlock({ feature, index }: { feature: PlatformFeature; index: num
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.5 }}
-      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-10 lg:gap-16 items-start py-16 border-b border-neutral-100 last:border-0 ]`}
+      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-10 lg:gap-16 items-center py-16 border-b border-neutral-100 last:border-0`}
     >
       {/* Text */}
       <div className="flex-1">
@@ -117,13 +336,9 @@ function FeatureBlock({ feature, index }: { feature: PlatformFeature; index: num
         </ul>
       </div>
 
-      {/* Visual */}
-      <div className="flex-1 w-full flex items-center justify-center">
-        <img
-          src={isEven ? omnichannelFlow : ticketWorkflow}
-          alt={feature.tag}
-          className="w-full h-auto object-contain"
-        />
+      {/* Visual — playback placeholder */}
+      <div className="flex-1 w-full">
+        <PlaybackCard gradient={CARD_GRADIENTS[index]}>{MOCKS[index]}</PlaybackCard>
       </div>
     </motion.div>
   );
@@ -299,7 +514,7 @@ export function Platform() {
               <div className="flex flex-col items-center">
                 <Link
                   to="/contact"
-                  className="w-full max-w-[170px] px-4 py-3.5 text-base text-[16px] font-semibold text-white bg-neutral-900 rounded-md hover:bg-neutral-800 transition-colors text-center"
+                  className="w-full max-w-[170px] px-4 py-3.5 text-base text-[16px] font-semibold text-white bg-neutral-900 rounded-md hover:bg-[#016734] transition-colors text-center"
                 >
                   Start Free Trial
                 </Link>
@@ -311,7 +526,7 @@ export function Platform() {
               <div className="flex flex-col items-center gap-2">
                 <Link
                   to="#"
-                  className="inline-flex items-center justify-center gap-2 w-full max-w-[220px] px-4 py-3.5 text-base font-medium text-neutral-700 border border-neutral-200 bg-white rounded-md hover:bg-neutral-50 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 w-full max-w-[220px] px-4 py-3.5 text-base font-medium text-neutral-700 border border-neutral-200 bg-white rounded-md hover:bg-[#016734] hover:text-white hover:border-[#016734] transition-colors"
                 >
                   <Play size={15} className="fill-current" />
                   Watch 2-min Demo

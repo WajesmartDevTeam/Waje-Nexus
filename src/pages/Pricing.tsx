@@ -210,8 +210,8 @@ export function Pricing() {
                   className={cn(
                     'block text-center py-3.5 text-sm font-semibold rounded-full border transition-colors mb-8',
                     plan.highlighted
-                      ? 'bg-white text-green-800 border-white hover:bg-green-50'
-                      : 'bg-white text-green-700 border-green-600 hover:bg-green-50'
+                      ? 'bg-white text-green-800 border-white hover:bg-[#016734] hover:text-white'
+                      : 'bg-white text-green-700 border-green-600 hover:bg-[#016734] hover:text-white'
                   )}
                 >
                   Get Started Now

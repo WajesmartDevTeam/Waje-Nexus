@@ -1,26 +1,27 @@
 import { Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Container } from '@/components/layout/Container';
-import hub from '@/assets/centerintegration.png';
+import connector from '@/assets/connector.png';
 
 const LEFT_ITEMS = [
-  { title: 'Omnichannel Contact Center', desc: 'Different communication channels, one interface' },
-  { title: 'Sales Pipeline Management', desc: 'Turn more leads into customers' },
-  { title: 'Workforce Management', desc: 'Build high-performing teams' },
-  { title: 'Customer Satisfaction (CSAT)', desc: 'Measure every customer experience' },
-  { title: 'Reporting & Analytics', desc: 'Turn data into action' },
+  { title: 'Omnichannel Contact Center', desc: 'Different communication Channels, One Interface' },
+  { title: 'Sales Pipeline Management', desc: 'Turn More Leads into Customers' },
+  { title: 'Workforce Management', desc: 'Build High-Performing Teams' },
+  { title: 'Customer Satisfaction (CSAT)', desc: 'Measure Every Customer Experience' },
+  { title: 'Reporting & Analytics', desc: 'Turn Data into Action' },
 ];
 
 const RIGHT_ITEMS = [
-  { title: 'Marketing Automation', desc: 'Engage customers at the right time' },
-  { title: 'Knowledge Base', desc: 'Make self-service effortless' },
-  { title: 'SLA Management', desc: 'Make answers a service commitment' },
-  { title: 'Case Management', desc: 'Resolve issues with confidence' },
+  { title: 'Marketing Automation', desc: 'Engage Customers at the Right Time' },
+  { title: 'AI & Automation', desc: 'Let AI Do the Heavy Lifting' },
+  { title: 'Knowledge Base', desc: 'Build High-Performing Teams' },
+  { title: 'SLA Management', desc: 'Never Miss a Service Commitment' },
+  { title: 'Case Management', desc: 'Resolve Issues with Confidence' },
 ];
 
 function SolutionCard({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="flex items-center gap-3 border border-neutral-200 bg-white px-4 py-3">
+    <div className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white px-4 py-3">
       <div className="min-w-0">
         <p className="text-sm font-semibold text-neutral-900">{title}</p>
         <p className="text-xs text-neutral-500 leading-snug">{desc}</p>
@@ -48,34 +49,33 @@ export function UnifiedSolution() {
           </div>
           <Link
             to="/contact"
-            className="shrink-0 self-start md:self-auto px-6 py-3 text-sm font-semibold text-white bg-neutral-900 rounded-sm hover:bg-neutral-800 transition-colors"
+            className="shrink-0 self-start md:self-auto px-6 py-3 text-sm font-semibold text-white bg-neutral-900 rounded-lg hover:bg-[#016734] transition-colors"
           >
             Book a Demo
           </Link>
         </div>
 
-        {/* Hub diagram */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-6 items-center">
+        {/* Hub diagram: left cards | connector | right cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-4 items-center">
           {/* Left column */}
-          <div className="flex flex-col gap-4 order-2 lg:order-1">
+          <div className="flex flex-col gap-4">
             {LEFT_ITEMS.map((item) => (
               <SolutionCard key={item.title} {...item} />
             ))}
           </div>
 
-          {/* Center hub */}
-          <div className="order-1 lg:order-2 flex justify-center">
-            <div className="w-44 h-44 rounded-full bg-green-100/50 flex items-center justify-center">
-              <div className="w-32 h-32 rounded-full bg-green-200/50 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-full bg-green-300/40 flex items-center justify-center">
-                  <img src={hub} alt="WajeNexus unified platform" className="w-14 h-14 object-contain drop-shadow" />
-                </div>
-              </div>
-            </div>
+          {/* Connector — horizontal on desktop, rotated vertical on mobile */}
+          <div className="flex items-center justify-center min-h-[200px] py-2 lg:min-h-0 lg:py-0">
+            <img
+              src={connector}
+              alt=""
+              aria-hidden="true"
+              className="w-48 rotate-90 lg:w-full lg:rotate-0"
+            />
           </div>
 
           {/* Right column */}
-          <div className="flex flex-col gap-4 order-3">
+          <div className="flex flex-col gap-4">
             {RIGHT_ITEMS.map((item) => (
               <SolutionCard key={item.title} {...item} />
             ))}

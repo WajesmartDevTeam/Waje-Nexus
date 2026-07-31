@@ -28,11 +28,11 @@ interface ButtonAsLink extends ButtonBaseProps {
 type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variants: Record<ButtonVariant, string> = {
-  primary: 'bg-neutral-900 text-white hover:bg-neutral-800 active:bg-neutral-950 shadow-sm',
-  secondary: 'bg-white text-neutral-900 border border-neutral-200 hover:bg-neutral-50 active:bg-neutral-100 shadow-sm',
-  outline: 'bg-transparent text-neutral-900 border border-neutral-300 hover:bg-neutral-50',
-  ghost: 'bg-transparent text-neutral-700 hover:bg-neutral-100',
-  green: 'bg-green-700 text-white hover:bg-green-800 active:bg-green-900 shadow-sm',
+  primary: 'bg-neutral-900 text-white hover:bg-[#016734] active:bg-[#015a2d] shadow-sm',
+  secondary: 'bg-white text-neutral-900 border border-neutral-200 hover:bg-[#016734] hover:text-white hover:border-[#016734] shadow-sm',
+  outline: 'bg-transparent text-neutral-900 border border-neutral-300 hover:bg-[#016734] hover:text-white hover:border-[#016734]',
+  ghost: 'bg-transparent text-neutral-700 hover:bg-[#016734] hover:text-white',
+  green: 'bg-green-700 text-white hover:bg-[#016734] active:bg-[#015a2d] shadow-sm',
 };
 
 const sizes: Record<ButtonSize, string> = {

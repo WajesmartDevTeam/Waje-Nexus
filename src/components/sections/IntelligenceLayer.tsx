@@ -4,7 +4,7 @@ import { CircleDot } from 'lucide-react';
 import { Container } from '@/components/layout/Container';
 import type { AICapability } from '@/types';
 import aivector from '@/assets/Vector-ai.png';
-import omnichannelFlow from '@/assets/Gemini_Generated_Image_cn39zvcn39zvcn39 1.png';
+import smartRouting from '@/assets/smart-routing.png';
 import aigentImg from '@/assets/aigent.png';
 import omnichannelImg from '@/assets/omnichannel.png';
 import analyticsImg from '@/assets/analytics.png';
@@ -12,7 +12,7 @@ import salesPipelineImg from '@/assets/salespipeline.png';
 import automationEngineImg from '@/assets/automationEngine.png';
 
 const CAPABILITY_IMAGES: Record<string, string> = {
-  routing: omnichannelFlow,
+  routing: smartRouting,
   assist: aigentImg,
   chatbot: omnichannelImg,
   analytics: analyticsImg,
@@ -126,7 +126,7 @@ export function IntelligenceLayer() {
         </div>
 
         {/* Tab bar — single segmented pill container */}
-        <div className="mb-10 overflow-x-auto">
+        <div className="mb-10 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="inline-flex items-center gap-1 p-1.5 rounded-full border border-neutral-200 bg-white mx-auto min-w-full md:min-w-0 w-max">
             {CAPABILITIES.map((cap) => (
               <button
