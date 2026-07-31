@@ -29,13 +29,13 @@ export function CTABanner({
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
             <Link
               to={primaryCTA.href}
-              className="px-6 py-3 text-sm font-semibold text-white bg-neutral-900 rounded-md hover:bg-neutral-800 transition-colors"
+              className="px-6 py-3 text-sm font-semibold text-white bg-neutral-900 rounded-md hover:bg-[#016734] transition-colors"
             >
               {primaryCTA.label}
             </Link>
             <Link
               to={secondaryCTA.href}
-              className="inline-flex items-center gap-2 px-4 py-3 text-sm font-medium text-neutral-700 border border-neutral-200 bg-white rounded-md hover:bg-neutral-50 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-3 text-sm font-medium text-neutral-700 border border-neutral-200 bg-white rounded-md hover:bg-[#016734] hover:text-white hover:border-[#016734] transition-colors"
             >
               <Play size={14} className="fill-current" />
               {secondaryCTA.label}

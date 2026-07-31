@@ -274,13 +274,13 @@ function APISection() {
             <div className="flex flex-wrap gap-3">
               <Link
                 to="/contact"
-                className="px-6 py-3 text-sm font-semibold text-white bg-neutral-900 rounded-lg hover:bg-neutral-800 transition-colors"
+                className="px-6 py-3 text-sm font-semibold text-white bg-neutral-900 rounded-lg hover:bg-[#016734] transition-colors"
               >
                 Book a Demo
               </Link>
               <Link
                 to="/contact"
-                className="px-6 py-3 text-sm font-medium text-neutral-700 border border-neutral-200 bg-white rounded-lg hover:bg-neutral-50 transition-colors"
+                className="px-6 py-3 text-sm font-medium text-neutral-700 border border-neutral-200 bg-white rounded-lg hover:bg-[#016734] hover:text-white hover:border-[#016734] transition-colors"
               >
                 Talk to Our Team
               </Link>
@@ -316,13 +316,13 @@ export function Integrations() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 to="/contact"
-                className="px-7 py-3.5 text-base font-semibold text-white bg-neutral-900 rounded-xl hover:bg-neutral-800 transition-colors"
+                className="px-7 py-3.5 text-base font-semibold text-white bg-neutral-900 rounded-xl hover:bg-[#016734] transition-colors"
               >
                 Book a Demo
               </Link>
               <Link
                 to="/contact"
-                className="px-6 py-3.5 text-base font-medium text-neutral-700 border border-neutral-200 bg-white rounded-xl hover:bg-neutral-50 transition-colors"
+                className="px-6 py-3.5 text-base font-medium text-neutral-700 border border-neutral-200 bg-white rounded-xl hover:bg-[#016734] hover:text-white hover:border-[#016734] transition-colors"
               >
                 Talk to Our Team
               </Link>

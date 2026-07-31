@@ -124,7 +124,7 @@ export function Solutions() {
                     <div className="mt-auto pt-2">
                       <Link
                         to="/contact"
-                        className="inline-block px-5 py-2.5 text-sm font-semibold text-white bg-neutral-900 rounded-xl hover:bg-neutral-800 transition-colors"
+                        className="inline-block px-5 py-2.5 text-sm font-semibold text-white bg-neutral-900 rounded-xl hover:bg-[#016734] transition-colors"
                       >
                         Talk to a specialist
                       </Link>

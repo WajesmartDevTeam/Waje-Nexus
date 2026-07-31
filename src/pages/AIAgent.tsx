@@ -26,7 +26,7 @@ export function AIAgent() {
             </p>
             <Link
               to="/contact"
-              className="inline-block px-7 py-3.5 text-base font-semibold text-white bg-neutral-900 rounded-xl hover:bg-neutral-800 transition-colors"
+              className="inline-block px-7 py-3.5 text-base font-semibold text-white bg-neutral-900 rounded-xl hover:bg-[#016734] transition-colors"
             >
               Book a Demo
             </Link>

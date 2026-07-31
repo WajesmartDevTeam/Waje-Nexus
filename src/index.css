@@ -112,3 +112,14 @@
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+
+/* Feature "playback" placeholders */
+@keyframes fp-ring {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes fp-sweep {
+  from { transform: translateX(0); }
+  to   { transform: translateX(450%); }
+}
