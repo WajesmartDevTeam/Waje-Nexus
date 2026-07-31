@@ -14,6 +14,8 @@ import aiAgentImg from "@/assets/aigent.png";
 import salesPipelineImg from "@/assets/salespipeline.png";
 import analyticsImg from "@/assets/analytics.png";
 import automationEngineImg from "@/assets/automationEngine.png";
+import workforceImg from "@/assets/workforce-management.png";
+import caseTicketImg from "@/assets/case-ticket-management.png";
 
 /* Free Pexels stock clip (direct CDN file — the page URL won't play in <video>).
    NOTE: this is the 4K source; swap for the real product demo (or a lighter file) when ready. */
@@ -54,13 +56,13 @@ function HeroSection() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
             <Link
               to="/contact"
-              className="px-7 py-3.5 text-base font-semibold text-white bg-neutral-900 rounded-sm hover:bg-neutral-800 transition-colors shadow-sm"
+              className="px-7 py-3.5 text-base font-semibold text-white bg-neutral-900 rounded-sm hover:bg-[#016734] transition-colors shadow-sm"
             >
               Book a Demo
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3.5 text-base font-medium text-neutral-700 border border-neutral-200 bg-white rounded-sm hover:bg-neutral-50 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3.5 text-base font-medium text-neutral-700 border border-neutral-200 bg-white rounded-sm hover:bg-[#016734] hover:text-white hover:border-[#016734] transition-colors"
             >
               Talk to Our Team
             </Link>
@@ -103,6 +105,45 @@ function HeroSection() {
 }
 
 /* ── Feature Grid (Home Overview) ──────────────────────────────── */
+const FEATURES = [
+  {
+    title: 'Omnichannel Contact Centre',
+    desc: 'Handle calls, emails, WhatsApp, live chat, and social media from one unified agent workspace, with AI-powered routing and real-time CSAT scoring built in.',
+    img: omnichannelImg,
+    alt: 'Omnichannel channels',
+  },
+  {
+    title: 'Campaigns & Marketing Automation',
+    desc: 'Run targeted campaigns that reach the right customers at the right moment, and hand off qualified leads to sales automatically.',
+    img: aiAgentImg,
+    alt: 'Campaign automation workflow',
+  },
+  {
+    title: 'Sales Pipeline Management',
+    desc: 'Give your sales team a clear, visual pipeline from first lead to closed deal, with WajeNexus scoring the opportunities most likely to convert.',
+    img: salesPipelineImg,
+    alt: 'Sales pipeline funnel',
+  },
+  {
+    title: 'Reporting, Analytics & Insights',
+    desc: 'Real-time dashboards for every role from contact center supervisors to CEOs, powered by WajeNexusAI and built on unified platform data.',
+    img: analyticsImg,
+    alt: 'Analytics dashboard',
+  },
+  {
+    title: 'Automation Engine',
+    desc: 'The intelligence layer running across everything routing, assisting agents, handling overnight queries, and automating the tasks that slow your team down.',
+    img: automationEngineImg,
+    alt: 'Automation workflow',
+  },
+  {
+    title: 'Workforce Management',
+    desc: 'Forecast demand, optimize schedules, and manage leave, attendance, and shift swaps from one intelligent planning interface.',
+    img: workforceImg,
+    alt: 'Workforce management',
+  },
+];
+
 function FeatureOverview() {
   return (
     <section id="features" className="py-16 sm:py-20 bg-[#F7F7F7] scroll-mt-24">
@@ -116,137 +157,46 @@ function FeatureOverview() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:items-stretch">
-          {/* ── Left column: Omnichannel + Analytics ── */}
-          <div className="flex flex-col gap-4">
-            {/* Omnichannel Inbox */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
+          {FEATURES.map((f, i) => (
             <motion.div
+              key={f.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className="flex-1 flex flex-col rounded-2xl border border-neutral-100 bg-white shadow-sm overflow-hidden"
+              transition={{ duration: 0.4, delay: i * 0.06 }}
+              className="flex flex-col h-full rounded-2xl border border-neutral-100 bg-linear-to-b from-white to-[#FBEEEA]/50 shadow-sm overflow-hidden"
             >
               <div className="p-6">
-                <h3 className="font-bold text-neutral-900 mb-2">
-                  Omnichannel Inbox
-                </h3>
-                <p className="text-sm text-neutral-600 leading-relaxed">
-                  Voice, WhatsApp, Email, and Web Chat in one unified
-                  queue. Your agents never miss a conversation.
-                </p>
+                <h3 className="font-bold text-neutral-900 mb-2">{f.title}</h3>
+                <p className="text-sm text-neutral-600 leading-relaxed">{f.desc}</p>
               </div>
-              <div className="flex-1 flex items-end justify-center px-4 pb-4">
-                <img
-                  src={omnichannelImg}
-                  alt="Omnichannel channels"
-                  className="w-full h-auto object-contain"
-                />
+              <div className="flex-1 flex items-center justify-center px-6 pb-6 pt-2 min-h-[190px]">
+                <img src={f.img} alt={f.alt} className="w-full h-auto max-h-56 object-contain" />
               </div>
             </motion.div>
+          ))}
 
-            {/* Real-Time Analytics */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.08 }}
-              className="flex-1 flex flex-col rounded-2xl border border-neutral-100 bg-white shadow-sm overflow-hidden"
-            >
-              <div className="p-6">
-                <h3 className="font-bold text-neutral-900 mb-2">
-                  Real-Time Analytics
-                </h3>
-                <p className="text-sm text-neutral-600 leading-relaxed">
-                  Live agent performance, SLA tracking, CSAT scores, and revenue
-                  attribution — on one dashboard, in real time.
-                </p>
-              </div>
-              <div className="flex-1 flex items-end justify-center px-4 pb-4">
-                <img
-                  src={analyticsImg}
-                  alt="Analytics chart"
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-            </motion.div>
-          </div>
-
-          {/* ── Middle column: AI Agents + Automation Engine ── */}
-          <div className="flex flex-col gap-4">
-            {/* AI Agents */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.12 }}
-              className="flex-1 flex flex-col rounded-2xl border border-neutral-100 bg-white shadow-sm overflow-hidden"
-            >
-              <div className="p-6">
-                <h3 className="font-bold text-neutral-900 mb-2">AI Agents</h3>
-                <p className="text-sm text-neutral-600 leading-relaxed">
-                  Deploy intelligent bots that resolve 60% of tier-1 tickets
-                  automatically, 24/7.
-                </p>
-              </div>
-              <div className="flex-1 flex items-end justify-center px-4 pb-4">
-                <img
-                  src={aiAgentImg}
-                  alt="AI Agent workflow"
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-            </motion.div>
-
-            {/* Automation Engine */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.16 }}
-              className="flex-1 flex flex-col rounded-2xl border border-neutral-100 bg-white shadow-sm overflow-hidden"
-            >
-              <div className="p-6">
-                <h3 className="font-bold text-neutral-900 mb-2">
-                  Automation Engine
-                </h3>
-                <p className="text-sm text-neutral-600 leading-relaxed">
-                  Build powerful cross-channel workflows with a drag-and-drop
-                  builder. No code. No IT tickets. Just results.
-                </p>
-              </div>
-              <div className="flex-1 flex items-end justify-center px-4 pb-4">
-                <img
-                  src={automationEngineImg}
-                  alt="Automation Engine workflow"
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-            </motion.div>
-          </div>
-
-          {/* ── Right column: Sales Pipeline CRM (full height) ── */}
+          {/* Case & Ticket Management — full width */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="flex flex-col rounded-2xl border border-neutral-100 bg-white shadow-sm overflow-hidden"
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="md:col-span-2 lg:col-span-3 flex flex-col md:flex-row rounded-2xl border border-neutral-100 bg-linear-to-br from-white to-[#FBEEEA]/50 shadow-sm overflow-hidden"
           >
-            <div className="p-6">
-              <h3 className="font-bold text-neutral-900 mb-2">
-                Sales Pipeline CRM
-              </h3>
+            <div className="p-6 md:max-w-md lg:max-w-lg">
+              <h3 className="font-bold text-neutral-900 mb-2">Case &amp; Ticket Management</h3>
               <p className="text-sm text-neutral-600 leading-relaxed">
-                Visual deal pipeline with AI-powered lead scoring and
-                next-best-action recommendations from prospect to close.
+                Capture, track, and resolve every customer issue automatically with SLA tracking, escalation
+                workflows, and a complete audit trail from first contact to final resolution.
               </p>
             </div>
-            <div className="flex-1 flex items-center justify-center px-6 pb-6">
+            <div className="flex-1 flex items-center justify-center md:justify-end px-6 pb-6 md:pt-6">
               <img
-                src={salesPipelineImg}
-                alt="Sales Pipeline funnel"
-                className="w-full h-auto object-contain"
+                src={caseTicketImg}
+                alt="Case and ticket management"
+                className="w-full max-w-md h-auto object-contain"
               />
             </div>
           </motion.div>
