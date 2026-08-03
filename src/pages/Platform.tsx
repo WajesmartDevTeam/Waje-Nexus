@@ -6,7 +6,7 @@ import { CTABanner } from '@/components/sections/CTABanner';
 import { Link } from 'react-router-dom';
 import type { PlatformFeature } from '@/types';
 import vector from "@/assets/Vector.png";
-import heroDashboard from "@/assets/wajenexus-dashboard.png";
+import heroDashboard from "@/assets/heroposter.png";
 
 const FEATURES: PlatformFeature[] = [
   {
@@ -516,7 +516,7 @@ export function Platform() {
                   to="/contact"
                   className="w-full max-w-[170px] px-4 py-3.5 text-base text-[16px] font-semibold text-white bg-neutral-900 rounded-md hover:bg-[#016734] transition-colors text-center"
                 >
-                  Start Free Trial
+                  Book a Demo
                 </Link>
                 <div className="flex items-center justify-center gap-1.5 text-[14px] text-[#3C3B3B]">
                   <span className="text-yellow-400 text-[20px]">★★★★★</span>
@@ -600,7 +600,7 @@ export function Platform() {
       <CommittedSection />
       <CTABanner
         heading="Ready to Transform your Customer Operations?"
-        primaryCTA={{ label: 'Start Free Trial', href: '/contact' }}
+        primaryCTA={{ label: 'Book a Demo', href: '/contact' }}
         secondaryCTA={{ label: 'Watch 2-min Demo', href: '#' }}
       />
     </>
